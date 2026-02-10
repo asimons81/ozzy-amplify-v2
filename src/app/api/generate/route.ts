@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Profile not found" }, { status: 404 });
   }
 
-  if (profile.credits_balance <= 0) {
+  if ((profile as any).credits_balance <= 0) {
     return NextResponse.json({ error: "Insufficient credits" }, { status: 402 });
   }
 
