@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
   try {
     const { object: toneProfile } = await generateObject({
-      model: geminiFlash,
+      model: geminiFlash as any,
       schema: ToneProfileSchema,
       prompt,
     });
