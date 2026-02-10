@@ -20,5 +20,5 @@ export async function GET() {
     return NextResponse.json({ credits: 0 });
   }
 
-  return NextResponse.json({ credits: data.credits_balance });
+  return NextResponse.json({ credits: (data as any).credits_balance });
 }
