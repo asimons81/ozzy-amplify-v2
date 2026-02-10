@@ -85,7 +85,7 @@ export async function POST(req: Request) {
 
   try {
     const { text } = await generateText({
-      model: geminiFlash,
+      model: geminiFlash as any,
       prompt,
       temperature: 0.7,
       maxTokens: 500,
