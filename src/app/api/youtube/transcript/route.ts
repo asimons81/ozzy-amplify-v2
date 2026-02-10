@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         .replace("{{CHANNEL}}", result.metadata?.channel || "Unknown");
 
       const { object } = await generateObject({
-        model: geminiFlash,
+        model: geminiFlash as any,
         schema: NuggetSchema,
         prompt,
       });

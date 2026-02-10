@@ -50,7 +50,7 @@ export async function calculateViralScore(content: string): Promise<ViralScore> 
   const heuristics = calculateHeuristics(content);
 
   const { object: aiScore } = await generateObject({
-    model: geminiFlash,
+    model: geminiFlash as any,
     schema: ViralScoreSchema,
     prompt: VIRAL_SCORING_PROMPT.replace("{{TWEET_CONTENT}}", content).concat(
       `\n\nHeuristic signals:\n- Character count: ${heuristics.charCount}\n- Line breaks: ${heuristics.lineBreaks}\n- Starts with hook word: ${heuristics.hasHookWord}\n- Has question: ${heuristics.hasQuestion}\n- Has numbers: ${heuristics.hasNumbers}\n- Emoji count: ${heuristics.emojiCount}\n- Readability score: ${heuristics.readabilityScore}`
