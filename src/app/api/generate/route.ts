@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     .eq("id", body.personaId || "")
     .maybeSingle();
 
-  const toneProfile = persona?.tone_profile || {
+  const toneProfile = (persona as any)?.tone_profile || {
     formality: 0.5,
     humor: 0.5,
     energy: 0.6,
@@ -71,8 +71,8 @@ export async function POST(req: Request) {
     writing_summary: "Balanced, conversational tone.",
   };
 
-  const sampleTweets = Array.isArray(persona?.sample_tweets)
-    ? persona.sample_tweets.join("\n")
+  const sampleTweets = Array.isArray((persona as any)?.sample_tweets)
+    ? (persona as any).sample_tweets.join("\n")
     : "";
 
   const prompt = GENERATION_PROMPT.replace(
@@ -97,7 +97,7 @@ export async function POST(req: Request) {
     const { data: generation, error: generationError } = await adminSupabase
       .from("generations")
       .insert({
-        user_id: profile.id,
+        user_id: (profile as any).id,
         persona_id: body.personaId || null,
         source_type: body.sourceType || "manual",
         source_url: body.sourceUrl || null,
@@ -118,7 +118,7 @@ export async function POST(req: Request) {
     }
 
     await adminSupabase.rpc("deduct_credits", {
-      p_user_id: profile.id,
+      p_user_id: (profile as any).id,
       p_amount: 1,
       p_action: "generation",
       p_reference_type: "generation",
